@@ -119,6 +119,7 @@
   --space-20: 20px;
   --space-24: 24px;
   --space-32: 32px;
+  --space-40: 40px;
 
   /* Border Radius */
   --radius-sm: 6px;
@@ -207,6 +208,9 @@
   --sidebar-width: 260px;
   --header-height: 80px;
   --header-height-mobile: 56px;
+  /* Clearances derived from header height to avoid clipping */
+  --header-offset: calc(var(--header-height) + 2px);
+  --header-offset-mobile: calc(var(--header-height-mobile) + 2px);
 }
 
 /* Dark mode colors */
@@ -1096,17 +1100,7 @@ select.form-control {
   perspective: var(--perspective-light);
 }
 
-.card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent);
-  z-index: 1;
-}
-
+.main::before { content: none; }
 .card::after {
   content: '';
   position: absolute;
@@ -1354,7 +1348,7 @@ select.form-control {
   align-items: center;
   justify-content: space-between;
   padding: 0 var(--space-32);
-  z-index: 1002;
+  z-index: 1100;
   box-shadow: var(--shadow-3d-medium);
   transition: all var(--duration-normal) var(--ease-out-quart);
   transform-style: preserve-3d;
@@ -1379,8 +1373,8 @@ select.form-control {
   left: 0;
   right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
-  opacity: 0.5;
+  background: linear-gradient(90deg, transparent, rgba(var(--color-teal-500-rgb, 33,128,141), 0.35), transparent);
+  opacity: 0.35;
 }
 
 .header__left {
@@ -1502,7 +1496,7 @@ select.form-control {
   background: var(--glass-bg);
   backdrop-filter: var(--glass-backdrop-blur);
   border-right: 1px solid var(--glass-border);
-  z-index: 1001;
+  z-index: 1050;
   transform: translateX(0);
   transition: all var(--duration-normal) var(--ease-out-quart);
   box-shadow: var(--shadow-3d-medium);
@@ -1638,10 +1632,12 @@ select.form-control {
   min-height: calc(100vh - var(--header-height));
   background: var(--color-background);
   background-image: var(--gradient-mesh);
+  /* shift mesh down a bit so no bright band touches the header */
+  background-position: 0 64px;
   position: relative;
   transform-style: preserve-3d;
   transition: all var(--duration-normal) var(--ease-smooth);
-  z-index: 1;
+  z-index: 0;
 }
 
 .main::before {
@@ -1650,10 +1646,10 @@ select.form-control {
   top: 0;
   left: 0;
   right: 0;
-  height: var(--space-32);
-  background: linear-gradient(to bottom, var(--color-background), transparent);
+  height: 0; /* neutralize top fade */
+  background: transparent;
   pointer-events: none;
-  z-index: 1;
+  z-index: 0;
 }
 
 .section {
@@ -2277,6 +2273,7 @@ select.form-control {
   }
   
   /* Dim main content when sidebar is open (mobile) */
+  .sidebar.open ~ .main::after,
   .sidebar.open + .main::after {
     content: '';
     position: fixed;
@@ -2286,8 +2283,8 @@ select.form-control {
     bottom: 0;
     background: rgba(0, 0, 0, 0.35);
     backdrop-filter: blur(2px);
-    z-index: 1000; /* below header (1002) and sidebar (1001), above main */
-    pointer-events: none;
+    z-index: 1020; /* below header (1100) and sidebar (1050), above main */
+    pointer-events: auto; /* capture clicks */
   }
   
   .main {
@@ -2295,6 +2292,7 @@ select.form-control {
     margin-top: var(--header-height-mobile);
     padding: var(--space-16);
     min-height: calc(100vh - var(--header-height-mobile));
+    background-position: 0 48px;
   }
   
   .header {
