@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+            <div class="shape shape-5"></div>
+        </div>
+    </div>
+    <!-- Header -->
+    <header class="header">
+        <div class="header__left">
+            <button class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <h1 class="header__title">Personal Dashboard</h1>
+        </div>
+        <div class="header__right">
+            <div class="theme-toggle">
+                <button id="themeToggle" class="btn btn--outline">
+                    <span id="themeIcon">🌙</span>
+                </button>
+            </div>
+            <div class="header__time" id="currentTime"></div>
+            <div class="header__user">
+                <img id="userAvatar" src="" alt="User Avatar" class="header__avatar">
+                <span id="userName" class="header__name"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar__content">
+            <ul class="sidebar__menu">
+                <li><a href="#" class="sidebar__link active" data-section="dashboard">
+                    <span class="sidebar__icon">📊</span>
+                    Dashboard
+                </a></li>
+                <li><a href="#" class="sidebar__link" data-section="profile">
+                    <span class="sidebar__icon">👤</span>
+                    Profile
+                </a></li>
+                <li><a href="#" class="sidebar__link" data-section="tasks">
+                    <span class="sidebar__icon">✅</span>
+                    To-Do List
+                </a></li>
+                <li><a href="#" class="sidebar__link" data-section="data">
+                    <span class="sidebar__icon">📈</span>
+                    Data Visualization
+                </a></li>
+                <li><a href="#" class="sidebar__link" data-section="feeds">
+                    <span class="sidebar__icon">📰</span>
+                    External Feeds
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main" id="mainContent">
+        <!-- Dashboard Section -->
+        <section class="section active" id="dashboard">
+            <div class="section__header animate-fade-in-up">
+                <div>
+                    <h2>Dashboard Overview</h2>
+                    <p class="welcome-message">
+                        <span class="greeting" id="greeting">Good morning</span>, 
+                        <span class="user-name" id="welcomeUser"></span>! 
+                        <span class="emoji animate-bounce">👋</span>
+                    </p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn--outline btn--sm" id="refreshData">
+                        <span class="refresh-icon">🔄</span> Refresh
+                    </button>
+                </div>
+            </div>
+            
+            <div class="stats-grid animate-stagger">
+                <div class="stat-card hover-lift">
+                    <div class="stat-card__icon">👥</div>
+                    <div class="stat-card__content">
+                        <h3 class="stat-card__value" id="totalUsers">0</h3>
+                        <p class="stat-card__label">Total Users</p>
+                        <div class="stat-card__trend">+12% from last month</div>
+                    </div>
+                    <div class="stat-card__background"></div>
+                </div>
+                <div class="stat-card hover-lift">
+                    <div class="stat-card__icon">📦</div>
+                    <div class="stat-card__content">
+                        <h3 class="stat-card__value" id="totalOrders">0</h3>
+                        <p class="stat-card__label">Total Orders</p>
+                        <div class="stat-card__trend">+8% from last month</div>
+                    </div>
+                    <div class="stat-card__background"></div>
+                </div>
+                <div class="stat-card hover-lift">
+                    <div class="stat-card__icon">💰</div>
+                    <div class="stat-card__content">
+                        <h3 class="stat-card__value" id="totalRevenue">$0</h3>
+                        <p class="stat-card__label">Total Revenue</p>
+                        <div class="stat-card__trend">+15% from last month</div>
+                    </div>
+                    <div class="stat-card__background"></div>
+                </div>
+                <div class="stat-card hover-lift">
+                    <div class="stat-card__icon">📈</div>
+                    <div class="stat-card__content">
+                        <h3 class="stat-card__value" id="growthRate">0%</h3>
+                        <p class="stat-card__label">Growth Rate</p>
+                        <div class="stat-card__trend">+3% from last month</div>
+                    </div>
+                    <div class="stat-card__background"></div>
+                </div>
+            </div>
+
+            <div class="dashboard-charts">
+                <div class="chart-container" style="position: relative; height: 300px;">
+                    <canvas id="revenueChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section class="section" id="profile">
+            <div class="section__header">
+                <h2>Profile Settings</h2>
+                <p>Manage your personal information and preferences</p>
+            </div>
+            
+            <div class="profile-content">
+                <div class="profile-card">
+                    <div class="profile-card__avatar">
+                        <img id="profileAvatar" src="" alt="Profile Avatar">
+                        <button class="btn btn--sm" id="changeAvatar">Change Avatar</button>
+                    </div>
+                    <div class="profile-card__info">
+                        <form class="profile-form" id="profileForm">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="profileName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="profileEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Role</label>
+                                <input type="text" class="form-control" id="profileRole">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Location</label>
+                                <input type="text" class="form-control" id="profileLocation">
+                            </div>
+                            <button type="submit" class="btn btn--primary">Save Changes</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tasks Section -->
+        <section class="section" id="tasks">
+            <div class="section__header">
+                <h2>To-Do List</h2>
+                <button class="btn btn--primary" id="addTaskBtn">Add New Task</button>
+            </div>
+            
+            <div class="tasks-filter">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="pending">Pending</button>
+                <button class="filter-btn" data-filter="completed">Completed</button>
+            </div>
+
+            <div class="tasks-list" id="tasksList"></div>
+        </section>
+
+        <!-- Data Visualization Section -->
+        <section class="section" id="data">
+            <div class="section__header">
+                <h2>Data Visualization</h2>
+                <p>Interactive charts and analytics</p>
+            </div>
+            
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <h3>User Growth</h3>
+                    <div class="chart-container" style="position: relative; height: 250px;">
+                        <canvas id="userGrowthChart"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3>Task Distribution</h3>
+                    <div class="chart-container" style="position: relative; height: 250px;">
+                        <canvas id="taskDistributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- External Feeds Section -->
+        <section class="section" id="feeds">
+            <div class="section__header">
+                <h2>External Feeds</h2>
+                <p>Latest news and updates from XML feeds</p>
+            </div>
+            
+            <div class="feeds-content" id="feedsContent">
+                <div class="loading">Loading feeds...</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Task Modal -->
+    <div class="modal hidden" id="taskModal">
+        <div class="modal__backdrop" id="taskModalBackdrop"></div>
+        <div class="modal__content">
+            <div class="modal__header">
+                <h3 id="taskModalTitle">Add New Task</h3>
+                <button class="modal__close" id="taskModalClose">&times;</button>
+            </div>
+            <form class="modal__body" id="taskForm">
+                <div class="form-group">
+                    <label class="form-label">Title</label>
+                    <input type="text" class="form-control" id="taskTitle" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" id="taskDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Priority</label>
+                    <select class="form-control" id="taskPriority">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Due Date</label>
+                    <input type="date" class="form-control" id="taskDueDate">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select class="form-control" id="taskCategory">
+                        <option value="Work">Work</option>
+                        <option value="Personal">Personal</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="modal__footer">
+                    <button type="button" class="btn btn--outline" id="cancelTask">Cancel</button>
+                    <button type="submit" class="btn btn--primary" id="saveTask">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification hidden" id="notification">
+        <span class="notification__message"></span>
+        <button class="notification__close">&times;</button>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Loading...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="app.js"></script>
+    <script src="test-suite.js"></script>
+</body>
+</html>

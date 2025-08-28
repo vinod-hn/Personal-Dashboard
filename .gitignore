@@ -1,0 +1,32 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Node / Front-end tooling (if added later)
+node_modules/
+dist/
+build/
+.cache/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Package managers
+pnpm-lock.yaml
+package-lock.json
+
+# Editors/IDEs
+.vscode/
+.idea/
+*.swp
+
+# Testing/coverage
+coverage/
+
+# Environment files
+.env
+.env.*
+
+# Misc
+*.local
