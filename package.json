@@ -1,0 +1,12 @@
+{
+  "name": "personal-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test:headless": "node tools/run-tests.js"
+  },
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "puppeteer": "^21.0.1"
+  }
+}

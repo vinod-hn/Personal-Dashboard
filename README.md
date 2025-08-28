@@ -205,3 +205,16 @@ const customData = {
 **Built with modern web technologies and attention to detail.** 🎨✨
 
 For questions or contributions, please refer to the documentation or create an issue.
+
+## Continuous Integration
+
+This project includes a GitHub Actions workflow that runs a lightweight headless test using Puppeteer.
+
+To run the same tests locally:
+
+```powershell
+npm ci
+npm run test:headless
+```
+
+The test spins up a small static server and opens `test.html` in headless Chromium to validate the UI smoke tests.
